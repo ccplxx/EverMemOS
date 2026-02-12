@@ -5,16 +5,18 @@ This module contains the definitions of memory types and related data structures
 """
 
 from enum import Enum
-from typing import List, Dict, Any, Optional, Union
-from dataclasses import dataclass
 from datetime import datetime
-from common_utils.datetime_utils import to_iso_format
+from dataclasses import dataclass
+from typing import List, Dict, Any, Optional, Union
 
 from api_specs.memory_models import MemoryType
+from common_utils.datetime_utils import to_iso_format
 
 
 class RawDataType(Enum):
-    """Types of content that can be processed."""
+    """Types of content that can be processed.
+    元数据类型，目前仅仅支持对话
+    """
 
     CONVERSATION = "Conversation"
 
@@ -53,7 +55,9 @@ class RawDataType(Enum):
 
 
 class ParentType(str, Enum):
-    """Parent memory type for Foresight/EventLog."""
+    """Parent memory type for Foresight/EventLog.
+    前瞻类和时间类的基记忆类型
+    """
 
     MEMCELL = "memcell"
     EPISODE = "episode"
@@ -136,7 +140,7 @@ class MemCell:
             "extend": self.extend,
         }
 
-
+# TODO 这里类型与memory_models.py的差异在哪里？
 @dataclass
 class BaseMemory:
     """

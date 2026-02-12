@@ -16,6 +16,8 @@ from common_utils.datetime_utils import get_now_with_timezone
 
 class MessageSenderRole(str, Enum):
     """Enumeration of message sender roles
+    
+    消息发送角色枚举
 
     Used to identify the source of a message in conversations.
     Compatible with OpenAI/mem0/memos message format.
@@ -68,7 +70,9 @@ class MessageSenderRole(str, Enum):
 
 
 class RetrieveMethod(str, Enum):
-    """Enumeration of retrieval methods"""
+    """Enumeration of retrieval methods
+    记忆查询方法枚举
+    """
 
     KEYWORD = "keyword"
     VECTOR = "vector"
@@ -78,7 +82,9 @@ class RetrieveMethod(str, Enum):
 
 
 class MemoryType(str, Enum):
-    """Enumeration of memory types
+    """
+    记忆类型
+    Enumeration of memory types
 
     Currently implemented types:
     - PROFILE: User profile
@@ -91,10 +97,10 @@ class MemoryType(str, Enum):
     """
 
     # ===== Implemented =====
-    PROFILE = "profile"  # User profile
-    EPISODIC_MEMORY = "episodic_memory"  # Episodic memory
-    FORESIGHT = "foresight"  # Prospective memory
-    EVENT_LOG = "event_log"  # Event log (atomic facts)
+    PROFILE = "profile"  # User profile  画像类
+    EPISODIC_MEMORY = "episodic_memory"  # Episodic memory  场景类
+    FORESIGHT = "foresight"  # Prospective memory  前瞻类
+    EVENT_LOG = "event_log"  # Event log (atomic facts)  时间结构类
 
     # ===== Not yet implemented or deprecated =====
     BASE_MEMORY = "base_memory"  # [Not implemented]
@@ -108,7 +114,9 @@ class MemoryType(str, Enum):
 
 @dataclass
 class Metadata:
-    """Memory metadata class"""
+    """Memory metadata class
+    基于元数据类
+    """
 
     # Required fields
     source: str  # Data source
@@ -138,7 +146,9 @@ class Metadata:
 
 @dataclass
 class BaseMemoryModel:
-    """Base memory model"""
+    """Base memory model
+    记忆模型基础类
+    """
 
     id: str
     user_id: str
@@ -151,6 +161,7 @@ class BaseMemoryModel:
 @dataclass
 class ProfileModel:
     """User profile model
+    用户画像模型
 
     Stores user profile information automatically extracted from clustering conversations.
     Compatible with UserProfile document structure.
@@ -173,7 +184,7 @@ class ProfileModel:
 @dataclass
 class GlobalUserProfileModel:
     """Global user profile model
-
+    全局用户画像模型
     Stores global user profile information (not bound to a specific group).
     Compatible with GlobalUserProfile document structure.
     """
@@ -192,16 +203,18 @@ class GlobalUserProfileModel:
 class CombinedProfileModel:
     """Combined profile model
 
+    组用户画像 + 全局用户画像
+
     Contains both group-level profile and global user profile.
     Used when fetching PROFILE memory type.
     """
 
     user_id: str
-    group_id: Optional[str] = None
+    group_id: Optional[str] = None  # TODO 为啥要带上group_id
     # Group-level profiles (may have multiple for different groups)
-    profiles: List[ProfileModel] = field(default_factory=list)
+    profiles: List[ProfileModel] = field(default_factory=list)  # 组用户画像
     # Global user profile (one per user per scenario)
-    global_profile: Optional[GlobalUserProfileModel] = None
+    global_profile: Optional[GlobalUserProfileModel] = None  # 全局用户画像
 
 
 @dataclass
@@ -221,7 +234,9 @@ class PreferenceModel:
 
 @dataclass
 class EpisodicMemoryModel:
-    """Episodic memory model"""
+    """Episodic memory model
+    场景类记忆模型
+    """
 
     id: str
     user_id: str
