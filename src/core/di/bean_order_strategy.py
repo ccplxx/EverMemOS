@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """
+基于组件的定义，计算组件的优先级
 Bean ordering strategy module
 
 Used to determine the priority order of Beans based on BeanDefinition attributes (such as is_primary, metadata, etc.)
@@ -18,6 +19,7 @@ from core.di.bean_definition import BeanDefinition, BeanScope
 class BeanOrderStrategy:
     """
     Bean ordering strategy class
+    0: 优先级更高
 
     Calculates and sorts Bean priorities based on various attributes of BeanDefinition
     Used to determine usage order when there are multiple candidate Beans
@@ -58,7 +60,7 @@ class BeanOrderStrategy:
         match_priority = 0 if is_direct_match else 1
 
         # 3. Primary priority (Primary takes precedence)
-        primary_priority = 0 if bean_def.is_primary else 1
+        primary_priority = 0 if bean_def.is_primary else 1 
 
         # 4. Scope priority (Factory takes precedence)
         scope_priority = 0 if bean_def.scope == BeanScope.FACTORY else 1
@@ -73,6 +75,7 @@ class BeanOrderStrategy:
     ) -> List[BeanDefinition]:
         """
         Sort the list of Bean definitions based on context information
+        对给定的多个组件定义列表进行排序
 
         Args:
             bean_defs: List of Bean definitions

@@ -1,6 +1,8 @@
 """
 Memory retrieval service
 
+依据条件精确查找记忆
+
 This module provides a service layer interface for accessing memory data, interfacing with repository classes that access the database.
 Provides ID-based query functionality, supporting retrieval of various memory types.
 """

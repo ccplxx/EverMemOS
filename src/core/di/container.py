@@ -51,6 +51,7 @@ class DIContainer:
     def replace_bean_order_strategy(cls, strategy_class):
         """
         Replace Bean ordering strategy class
+        更换组件排序策略类
 
         Args:
             strategy_class: New ordering strategy class, must have interface compatible with BeanOrderStrategy
@@ -63,12 +64,16 @@ class DIContainer:
 
     def __init__(self):
         self._lock = RLock()
+        
         # Store Bean definitions by type {Type: [BeanDefinition]}
         self._bean_definitions: Dict[Type, List[BeanDefinition]] = {}
+
         # Store Bean definitions by name {name: BeanDefinition}
+        # 组件名字与组件定义的映射
         self._named_beans: Dict[str, BeanDefinition] = {}
 
         # Store singleton instances {BeanDefinition: instance}
+        # 单例组件与示例的字典
         self._singleton_instances: Dict[BeanDefinition, Any] = {}
 
         # Mock mode
@@ -78,6 +83,7 @@ class DIContainer:
 
         # Performance optimization cache
         # Inheritance relationship cache {parent_type: [child_types]}
+        # 继承关系
         self._inheritance_cache: Dict[Type, List[Type]] = {}
         # Candidate Bean cache {(Type, mock_mode): [BeanDefinition]}
         self._candidates_cache: Dict[tuple, List[BeanDefinition]] = {}

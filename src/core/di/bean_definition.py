@@ -8,12 +8,12 @@ Contains Bean definition classes and scope enumeration
 from enum import Enum
 from typing import Type, Callable, Any, Set, Dict, Optional
 
-
+# Bean作用域
 class BeanScope(str, Enum):
     """Bean scope enumeration"""
 
-    SINGLETON = "singleton"
-    PROTOTYPE = "prototype"
+    SINGLETON = "singleton"  # 单例
+    PROTOTYPE = "prototype"  # 实例
     FACTORY = "factory"
 
 
